@@ -12,7 +12,7 @@
         }
 
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             color: #333;
             overflow-x: hidden;
@@ -22,6 +22,133 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
+        }
+
+        /* Admin Panel */
+        .admin-panel {
+            position: fixed;
+            top: 0;
+            right: -350px;
+            width: 350px;
+            height: 100vh;
+            background: rgba(255,255,255,0.98);
+            box-shadow: -5px 0 20px rgba(0,0,0,0.1);
+            z-index: 9999;
+            transition: right 0.3s ease;
+            backdrop-filter: blur(10px);
+            overflow-y: auto;
+        }
+
+        .admin-panel.open {
+            right: 0;
+        }
+
+        .admin-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(45deg, #27ae60, #2980b9);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 10000;
+            font-size: 1.2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .admin-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        .admin-content {
+            padding: 80px 20px 20px;
+        }
+
+        .admin-section {
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background: rgba(39,174,96,0.1);
+            border-radius: 10px;
+            border-left: 4px solid #27ae60;
+        }
+
+        .admin-section h3 {
+            color: #27ae60;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .file-upload {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+            margin-bottom: 1rem;
+        }
+
+        .file-upload input[type="file"] {
+            position: absolute;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .file-upload-label {
+            display: block;
+            padding: 10px;
+            background: linear-gradient(45deg, #f1c40f, #f39c12);
+            color: white;
+            text-align: center;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .file-upload-label:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(241,196,15,0.3);
+        }
+
+        .admin-input {
+            width: 100%;
+            padding: 8px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .admin-input:focus {
+            outline: none;
+            border-color: #27ae60;
+        }
+
+        .admin-btn {
+            background: linear-gradient(45deg, #27ae60, #2980b9);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            margin-right: 5px;
+        }
+
+        .admin-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .preview-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
 
         /* Header y Navigation */
@@ -43,8 +170,23 @@
             align-items: center;
         }
 
-        .logo {
-            font-size: 1.5rem;
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .company-logo {
+            height: 50px;
+            width: 50px;
+            object-fit: contain;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.1);
+            padding: 5px;
+        }
+
+        .logo-text {
+            font-size: 1.3rem;
             font-weight: bold;
             background: linear-gradient(45deg, #f1c40f, #f39c12);
             -webkit-background-clip: text;
@@ -65,6 +207,7 @@
             position: relative;
             padding: 0.5rem 1rem;
             border-radius: 25px;
+            font-weight: 500;
         }
 
         .nav-links a:hover {
@@ -102,7 +245,7 @@
             position: absolute;
             width: 200%;
             height: 200%;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="construction" width="50" height="50" patternUnits="userSpaceOnUse"><rect width="50" height="50" fill="rgba(243,156,18,0.1)"/><path d="M0 25h50M25 0v50" stroke="rgba(243,156,18,0.2)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23construction)"/></svg>');
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="construction" width="50" height="50" patternUnits="userSpaceOnUse"><rect width="50" height="50" fill="rgba(241,196,15,0.1)"/><path d="M0 25h50M25 0v50" stroke="rgba(241,196,15,0.2)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23construction)"/></svg>');
             animation: slide 30s linear infinite;
         }
 
@@ -117,14 +260,16 @@
         }
 
         .hero h1 {
-            font-size: 3rem;
+            font-size: 3.2rem;
             margin-bottom: 1rem;
             opacity: 0;
             animation: fadeInUp 1s ease 0.5s forwards;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
 
         .hero .subtitle {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             margin-bottom: 1rem;
             color: #f1c40f;
             font-weight: 600;
@@ -133,19 +278,29 @@
         }
 
         .hero p {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
+            font-size: 1.3rem;
+            margin-bottom: 2.5rem;
             max-width: 700px;
             margin-left: auto;
             margin-right: auto;
             opacity: 0;
             animation: fadeInUp 1s ease 0.9s forwards;
+            font-weight: 300;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            opacity: 0;
+            animation: fadeInUp 1s ease 1.1s forwards;
         }
 
         .cta-button {
             background: linear-gradient(45deg, #f1c40f, #f39c12);
             color: white;
-            padding: 15px 40px;
+            padding: 15px 35px;
             text-decoration: none;
             border-radius: 50px;
             font-weight: bold;
@@ -154,43 +309,56 @@
             display: inline-block;
             position: relative;
             overflow: hidden;
-            opacity: 0;
-            animation: fadeInUp 1s ease 1.1s forwards;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .cta-button.secondary {
+            background: transparent;
+            border: 2px solid #f1c40f;
+            color: #f1c40f;
         }
 
         .cta-button:hover {
             transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(241,196,15,0.4);
+            box-shadow: 0 15px 35px rgba(241,196,15,0.4);
         }
 
         .company-info {
-            background: rgba(255,255,255,0.1);
-            padding: 2rem;
-            border-radius: 15px;
-            margin-top: 3rem;
-            backdrop-filter: blur(10px);
+            background: rgba(255,255,255,0.15);
+            padding: 2.5rem;
+            border-radius: 20px;
+            margin-top: 4rem;
+            backdrop-filter: blur(15px);
             opacity: 0;
             animation: fadeInUp 1s ease 1.3s forwards;
+            border: 1px solid rgba(255,255,255,0.2);
         }
 
         .company-details {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
             text-align: left;
         }
 
         .company-details div {
             background: rgba(255,255,255,0.1);
-            padding: 1rem;
-            border-radius: 10px;
-            border-left: 4px solid #f1c40f;
+            padding: 1.2rem;
+            border-radius: 15px;
+            border-left: 5px solid #f1c40f;
+            transition: all 0.3s ease;
+        }
+
+        .company-details div:hover {
+            transform: translateY(-5px);
+            background: rgba(255,255,255,0.2);
         }
 
         .company-details strong {
             color: #f1c40f;
             display: block;
             margin-bottom: 0.5rem;
+            font-size: 1.1rem;
         }
 
         @keyframes fadeInUp {
@@ -206,17 +374,29 @@
 
         /* Sections */
         .section {
-            padding: 80px 0;
+            padding: 100px 0;
         }
 
         .section-title {
             text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
+            font-size: 2.8rem;
+            margin-bottom: 3.5rem;
             background: linear-gradient(135deg, #27ae60, #2980b9, #f1c40f);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            font-weight: 700;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.3rem;
+            margin-bottom: 3rem;
+            color: #666;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            font-weight: 300;
         }
 
         /* Services */
@@ -226,19 +406,20 @@
 
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 2.5rem;
         }
 
         .service-card {
             background: white;
-            padding: 2.5rem;
-            border-radius: 20px;
+            padding: 3rem;
+            border-radius: 25px;
             text-align: center;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
             transition: all 0.4s ease;
             position: relative;
             overflow: hidden;
+            border: 1px solid rgba(39,174,96,0.1);
         }
 
         .service-card::before {
@@ -247,7 +428,7 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 5px;
+            height: 6px;
             background: linear-gradient(45deg, #27ae60, #2980b9, #f1c40f);
             transform: scaleX(0);
             transition: transform 0.4s ease;
@@ -255,7 +436,7 @@
 
         .service-card:hover {
             transform: translateY(-15px);
-            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.15);
         }
 
         .service-card:hover::before {
@@ -263,29 +444,36 @@
         }
 
         .service-icon {
-            width: 100px;
-            height: 100px;
+            width: 120px;
+            height: 120px;
             background: linear-gradient(135deg, #27ae60, #2980b9);
             border-radius: 50%;
-            margin: 0 auto 1.5rem;
+            margin: 0 auto 2rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2.5rem;
+            font-size: 3rem;
             color: white;
-            box-shadow: 0 10px 30px rgba(39,174,96,0.3);
+            box-shadow: 0 15px 40px rgba(39,174,96,0.3);
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover .service-icon {
+            transform: scale(1.1);
         }
 
         .service-card h3 {
-            font-size: 1.6rem;
-            margin-bottom: 1rem;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
             color: #2980b9;
+            font-weight: 600;
         }
 
         .service-card p {
-            color: #7f8c8d;
-            line-height: 1.6;
+            color: #666;
+            line-height: 1.8;
             font-size: 1.1rem;
+            font-weight: 300;
         }
 
         /* Projects Gallery */
@@ -293,50 +481,132 @@
             background: white;
         }
 
+        .gallery-controls {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .gallery-filter {
+            background: none;
+            border: 2px solid #27ae60;
+            color: #27ae60;
+            padding: 10px 20px;
+            margin: 0 5px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .gallery-filter.active,
+        .gallery-filter:hover {
+            background: #27ae60;
+            color: white;
+        }
+
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
         }
 
         .project-card {
             background: #fff;
-            border-radius: 15px;
+            border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            transition: all 0.4s ease;
             position: relative;
+            border: 1px solid rgba(41,128,185,0.1);
         }
 
         .project-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
         }
 
         .project-image {
-            height: 250px;
-            background: linear-gradient(135deg, #34495e, #2c3e50);
+            height: 280px;
+            background: linear-gradient(135deg, #2980b9, #27ae60);
             position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 3rem;
+            font-size: 4rem;
+            overflow: hidden;
+        }
+
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .project-card:hover .project-image img {
+            transform: scale(1.1);
+        }
+
+        .project-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(39,174,96,0.8), rgba(41,128,185,0.8));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .project-card:hover .project-overlay {
+            opacity: 1;
         }
 
         .project-info {
-            padding: 1.5rem;
+            padding: 2rem;
         }
 
         .project-info h4 {
-            font-size: 1.3rem;
-            margin-bottom: 0.5rem;
-            color: #2c3e50;
+            font-size: 1.5rem;
+            margin-bottom: 0.8rem;
+            color: #27ae60;
+            font-weight: 600;
         }
 
         .project-info p {
-            color: #7f8c8d;
-            font-size: 0.95rem;
+            color: #666;
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .project-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+        }
+
+        .project-date {
+            color: #999;
+            font-size: 0.9rem;
+        }
+
+        .project-category {
+            background: linear-gradient(45deg, #f1c40f, #f39c12);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
         }
 
         /* About */
@@ -348,47 +618,63 @@
         .about-content {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 4rem;
+            gap: 5rem;
             align-items: center;
         }
 
         .about-text {
-            font-size: 1.1rem;
-            line-height: 1.8;
+            font-size: 1.2rem;
+            line-height: 1.9;
+            font-weight: 300;
         }
 
         .about-text h3 {
-            color: #f39c12;
-            margin-bottom: 1rem;
-            font-size: 1.5rem;
+            color: #f1c40f;
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+            font-weight: 600;
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
         }
 
         .about-stats {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-            margin-top: 2rem;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-top: 3rem;
         }
 
         .stat-item {
             text-align: center;
-            padding: 1rem;
-            background: rgba(243,156,18,0.2);
-            border-radius: 10px;
+            padding: 1.5rem;
+            background: rgba(241,196,15,0.2);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(241,196,15,0.3);
+        }
+
+        .stat-item:hover {
+            transform: translateY(-5px);
+            background: rgba(241,196,15,0.3);
         }
 
         .stat-number {
-            font-size: 2rem;
+            font-size: 2.5rem;
             font-weight: bold;
-            color: #f39c12;
+            color: #f1c40f;
+            display: block;
+            margin-bottom: 0.5rem;
         }
 
         .about-image {
-            background: linear-gradient(135deg, #f39c12, #e67e22);
-            height: 400px;
-            border-radius: 20px;
+            background: linear-gradient(135deg, #f1c40f, #f39c12);
+            height: 450px;
+            border-radius: 25px;
             position: relative;
             overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
         }
 
         .about-image::after {
@@ -397,7 +683,7 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 5rem;
+            font-size: 6rem;
             animation: construction 3s ease-in-out infinite;
         }
 
@@ -408,124 +694,195 @@
 
         /* Contact */
         .contact {
-            background: linear-gradient(135deg, #ecf0f1 0%, #bdc3c7 100%);
+            background: linear-gradient(135deg, #d5e8d4 0%, #e8f4f8 100%);
         }
 
         .contact-content {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 4rem;
+            gap: 5rem;
         }
 
         .contact-info {
             background: white;
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            border: 1px solid rgba(39,174,96,0.1);
         }
 
         .contact-info h3 {
-            color: #2c3e50;
-            margin-bottom: 1.5rem;
-            font-size: 1.5rem;
+            color: #2980b9;
+            margin-bottom: 2rem;
+            font-size: 1.8rem;
+            font-weight: 600;
         }
 
         .contact-item {
             display: flex;
-            align-items: center;
-            margin-bottom: 1rem;
-            padding: 0.5rem 0;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .contact-item:last-child {
+            border-bottom: none;
         }
 
         .contact-item i {
-            background: linear-gradient(45deg, #f39c12, #e67e22);
+            background: linear-gradient(45deg, #27ae60, #2980b9);
             color: white;
-            width: 40px;
-            height: 40px;
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-right: 1rem;
-            font-size: 1.2rem;
+            margin-right: 1.5rem;
+            font-size: 1.3rem;
+            flex-shrink: 0;
+            box-shadow: 0 5px 15px rgba(39,174,96,0.3);
         }
 
         .contact-form {
             background: white;
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            border: 1px solid rgba(41,128,185,0.1);
         }
 
         .form-group {
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.8rem;
         }
 
         .form-group label {
             display: block;
-            margin-bottom: 0.5rem;
-            font-weight: bold;
-            color: #2c3e50;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+            color: #2980b9;
+            font-size: 1.1rem;
         }
 
         .form-group input,
-        .form-group textarea {
+        .form-group textarea,
+        .form-group select {
             width: 100%;
-            padding: 12px;
-            border: 2px solid #bdc3c7;
-            border-radius: 10px;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
             font-size: 1rem;
             transition: all 0.3s ease;
+            font-family: inherit;
         }
 
         .form-group input:focus,
-        .form-group textarea:focus {
+        .form-group textarea:focus,
+        .form-group select:focus {
             outline: none;
-            border-color: #f39c12;
+            border-color: #27ae60;
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(243,156,18,0.2);
+            box-shadow: 0 8px 20px rgba(39,174,96,0.15);
         }
 
         .submit-btn {
-            background: linear-gradient(45deg, #f39c12, #e67e22);
+            background: linear-gradient(45deg, #27ae60, #2980b9);
             color: white;
-            padding: 12px 30px;
+            padding: 15px 40px;
             border: none;
-            border-radius: 25px;
-            font-size: 1rem;
+            border-radius: 30px;
+            font-size: 1.1rem;
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s ease;
             width: 100%;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .submit-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(243,156,18,0.4);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(39,174,96,0.4);
         }
 
         /* Footer */
         footer {
-            background: #2c3e50;
+            background: #2980b9;
             color: white;
-            text-align: center;
-            padding: 3rem 0;
+            padding: 4rem 0 2rem;
         }
 
         .footer-content {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-bottom: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
         }
 
         .footer-section h4 {
-            color: #f39c12;
-            margin-bottom: 1rem;
+            color: #f1c40f;
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .footer-section p,
+        .footer-section li {
+            line-height: 1.8;
+            color: #bbb;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+            padding-left: 1rem;
+            position: relative;
+        }
+
+        .footer-section ul li:before {
+            content: '▶';
+            position: absolute;
+            left: 0;
+            color: #f1c40f;
+            font-size: 0.8rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-link {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(45deg, #27ae60, #f1c40f);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+        }
+
+        .social-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(39,174,96,0.4);
         }
 
         /* Responsive Design */
         @media (max-width: 768px) {
+            .admin-panel {
+                width: 100%;
+                right: -100%;
+            }
+
             .hamburger {
                 display: flex;
             }
@@ -536,10 +893,10 @@
                 top: 100%;
                 left: 0;
                 width: 100%;
-                background: rgba(39, 174, 96, 0.95);
+                background: rgba(39, 174, 96, 0.98);
                 flex-direction: column;
                 padding: 1rem;
-                backdrop-filter: blur(10px);
+                backdrop-filter: blur(15px);
             }
 
             .nav-links.active {
@@ -551,7 +908,12 @@
             }
 
             .hero .subtitle {
-                font-size: 1.2rem;
+                font-size: 1.3rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
             }
 
             .about-content,
@@ -569,8 +931,16 @@
                 grid-template-columns: 1fr;
             }
 
-            .logo {
-                font-size: 1.2rem;
+            .logo-text {
+                font-size: 1rem;
+            }
+
+            .section {
+                padding: 60px 0;
+            }
+
+            .section-title {
+                font-size: 2.2rem;
             }
         }
 
@@ -585,12 +955,101 @@
             opacity: 1;
             transform: translateY(0);
         }
+
+        /* Loading animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body>
+    <!-- Admin Panel -->
+    <button class="admin-toggle" onclick="toggleAdmin()" title="Panel de Administración">⚙️</button>
+    
+    <div class="admin-panel" id="adminPanel">
+        <div class="admin-content">
+            <h2 style="color: #27ae60; text-align: center; margin-bottom: 2rem;">Panel de Administración</h2>
+            
+            <div class="admin-section">
+                <h3>📷 Logo de la Empresa</h3>
+                <div class="file-upload">
+                    <input type="file" id="logoUpload" accept="image/*" onchange="uploadLogo(this)">
+                    <label for="logoUpload" class="file-upload-label">Subir Logo</label>
+                </div>
+                <img id="logoPreview" class="preview-image" style="display: none;">
+            </div>
+
+            <div class="admin-section">
+                <h3>🏢 Información de la Empresa</h3>
+                <input type="text" id="companyName" class="admin-input" placeholder="Nombre de la empresa" value="Chinchina Ingeniería & Construcción">
+                <textarea id="companyDescription" class="admin-input" rows="3" placeholder="Descripción de la empresa">Especialistas en construcción de edificios completos, arquitectura e ingeniería. Tu proyecto, nuestra experiencia.</textarea>
+                <button class="admin-btn" onclick="updateCompanyInfo()">Actualizar Información</button>
+            </div>
+
+            <div class="admin-section">
+                <h3>📸 Galería de Proyectos</h3>
+                <div class="file-upload">
+                    <input type="file" id="projectUpload" accept="image/*" multiple onchange="uploadProjectImages(this)">
+                    <label for="projectUpload" class="file-upload-label">Subir Imágenes de Proyectos</label>
+                </div>
+                <input type="text" id="projectTitle" class="admin-input" placeholder="Título del proyecto">
+                <textarea id="projectDescription" class="admin-input" rows="2" placeholder="Descripción del proyecto"></textarea>
+                <select id="projectCategory" class="admin-input">
+                    <option value="construccion">Construcción</option>
+                    <option value="arquitectura">Arquitectura</option>
+                    <option value="ingenieria">Ingeniería</option>
+                    <option value="remodelacion">Remodelación</option>
+                </select>
+                <button class="admin-btn" onclick="addProject()">Agregar Proyecto</button>
+                <button class="admin-btn" onclick="clearGallery()" style="background: #e74c3c;">Limpiar Galería</button>
+            </div>
+
+            <div class="admin-section">
+                <h3>📞 Información de Contacto</h3>
+                <input type="text" id="contactPhone" class="admin-input" placeholder="Teléfono">
+                <input type="email" id="contactEmail" class="admin-input" placeholder="Email">
+                <input type="text" id="contactAddress" class="admin-input" placeholder="Dirección">
+                <button class="admin-btn" onclick="updateContactInfo()">Actualizar Contacto</button>
+            </div>
+
+            <div class="admin-section">
+                <h3>🎨 Personalización</h3>
+                <label>Color Principal:</label>
+                <input type="color" id="primaryColor" class="admin-input" value="#27ae60">
+                <label>Color Secundario:</label>
+                <input type="color" id="secondaryColor" class="admin-input" value="#2980b9">
+                <label>Color de Acento:</label>
+                <input type="color" id="accentColor" class="admin-input" value="#f1c40f">
+                <button class="admin-btn" onclick="updateColors()">Aplicar Colores</button>
+            </div>
+
+            <div class="admin-section">
+                <h3>💾 Exportar/Importar</h3>
+                <button class="admin-btn" onclick="exportData()">Exportar Datos</button>
+                <div class="file-upload">
+                    <input type="file" id="importData" accept=".json" onchange="importData(this)">
+                    <label for="importData" class="file-upload-label">Importar Datos</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <header>
         <nav class="container">
-            <div class="logo">Chinchina Ingeniería</div>
+            <div class="logo-container">
+                <img id="headerLogo" class="company-logo" style="display: none;" alt="Logo">
+                <div class="logo-text" id="headerCompanyName">Chinchina Ingeniería</div>
+            </div>
             <ul class="nav-links">
                 <li><a href="#inicio">Inicio</a></li>
                 <li><a href="#servicios">Servicios</a></li>
@@ -608,10 +1067,13 @@
 
     <section id="inicio" class="hero">
         <div class="container hero-content">
-            <h1>CHINCHINA INGENIERIA & CONSTRUCCION</h1>
+            <h1 id="heroTitle">CHINCHINA INGENIERIA & CONSTRUCCION</h1>
             <p class="subtitle">E.I.R.L.</p>
-            <p>Especialistas en construcción de edificios completos, arquitectura e ingeniería. Tu proyecto, nuestra experiencia.</p>
-            <a href="#contacto" class="cta-button">Solicitar Cotización</a>
+            <p id="heroDescription">Especialistas en construcción de edificios completos, arquitectura e ingeniería. Tu proyecto, nuestra experiencia.</p>
+            <div class="cta-buttons">
+                <a href="#contacto" class="cta-button">Solicitar Cotización</a>
+                <a href="#proyectos" class="cta-button secondary">Ver Proyectos</a>
+            </div>
             
             <div class="company-info">
                 <div class="company-details">
@@ -640,21 +1102,22 @@
     <section id="servicios" class="section services">
         <div class="container">
             <h2 class="section-title fade-in">Nuestros Servicios</h2>
+            <p class="section-subtitle fade-in">Ofrecemos soluciones integrales para todos tus proyectos de construcción e ingeniería</p>
             <div class="services-grid">
                 <div class="service-card fade-in">
                     <div class="service-icon">🏢</div>
                     <h3>Construcción de Edificios Completos</h3>
-                    <p>Desarrollamos proyectos de construcción integral desde la cimentación hasta el acabado final, garantizando calidad y cumplimiento de plazos.</p>
+                    <p>Desarrollamos proyectos de construcción integral desde la cimentación hasta el acabado final, garantizando calidad y cumplimiento de plazos con los más altos estándares.</p>
                 </div>
                 <div class="service-card fade-in">
                     <div class="service-icon">📐</div>
                     <h3>Arquitectura e Ingeniería</h3>
-                    <p>Servicios profesionales de diseño arquitectónico y cálculo estructural para proyectos residenciales, comerciales e industriales.</p>
+                    <p>Servicios profesionales de diseño arquitectónico y cálculo estructural para proyectos residenciales, comerciales e industriales con tecnología de vanguardia.</p>
                 </div>
                 <div class="service-card fade-in">
                     <div class="service-icon">🔧</div>
                     <h3>Venta de Artículos de Ferretería</h3>
-                    <p>Proveemos materiales de construcción y herramientas de calidad para profesionales y particulares en la región de Cusco.</p>
+                    <p>Proveemos materiales de construcción y herramientas de calidad superior para profesionales y particulares en toda la región de Cusco.</p>
                 </div>
             </div>
         </div>
@@ -663,33 +1126,74 @@
     <section id="proyectos" class="section projects">
         <div class="container">
             <h2 class="section-title fade-in">Nuestros Proyectos</h2>
-            <div class="projects-grid">
-                <div class="project-card fade-in">
-                    <div class="project-image">🏗️</div>
+            <p class="section-subtitle fade-in">Conoce algunos de nuestros trabajos más destacados</p>
+            
+            <div class="gallery-controls fade-in">
+                <button class="gallery-filter active" onclick="filterProjects('all')">Todos</button>
+                <button class="gallery-filter" onclick="filterProjects('construccion')">Construcción</button>
+                <button class="gallery-filter" onclick="filterProjects('arquitectura')">Arquitectura</button>
+                <button class="gallery-filter" onclick="filterProjects('ingenieria')">Ingeniería</button>
+                <button class="gallery-filter" onclick="filterProjects('remodelacion')">Remodelación</button>
+            </div>
+            
+            <div class="projects-grid" id="projectsGrid">
+                <div class="project-card fade-in" data-category="construccion">
+                    <div class="project-image">
+                        🏗️
+                        <div class="project-overlay">Ver Detalles</div>
+                    </div>
                     <div class="project-info">
-                        <h4>Proyecto 01</h4>
-                        <p>Construcción de edificio residencial de 4 pisos en Sicuani, Cusco. Proyecto integral con diseño moderno y acabados de primera calidad.</p>
+                        <h4>Edificio Residencial Sicuani</h4>
+                        <p>Construcción de edificio residencial de 4 pisos con 16 departamentos. Estructura de concreto armado con acabados de primera calidad.</p>
+                        <div class="project-meta">
+                            <span class="project-date">Diciembre 2023</span>
+                            <span class="project-category">Construcción</span>
+                        </div>
                     </div>
                 </div>
-                <div class="project-card fade-in">
-                    <div class="project-image">🏢</div>
+                
+                <div class="project-card fade-in" data-category="arquitectura">
+                    <div class="project-image">
+                        🏢
+                        <div class="project-overlay">Ver Detalles</div>
+                    </div>
                     <div class="project-info">
-                        <h4>Proyecto 02</h4>
-                        <p>Centro comercial en Canchis con estructura de concreto armado. Diseño arquitectónico funcional y eficiente para uso comercial.</p>
+                        <h4>Centro Comercial Canchis</h4>
+                        <p>Diseño arquitectónico y construcción de centro comercial de 3 niveles con 24 locales comerciales y área de estacionamiento.</p>
+                        <div class="project-meta">
+                            <span class="project-date">Octubre 2023</span>
+                            <span class="project-category">Arquitectura</span>
+                        </div>
                     </div>
                 </div>
-                <div class="project-card fade-in">
-                    <div class="project-image">🏘️</div>
+                
+                <div class="project-card fade-in" data-category="construccion">
+                    <div class="project-image">
+                        🏘️
+                        <div class="project-overlay">Ver Detalles</div>
+                    </div>
                     <div class="project-info">
-                        <h4>Proyecto 03</h4>
-                        <p>Complejo habitacional de 20 viviendas con servicios básicos completos y áreas comunes para recreación familiar.</p>
+                        <h4>Complejo Habitacional Las Flores</h4>
+                        <p>Desarrollo habitacional con 20 viviendas unifamiliares, áreas verdes y servicios básicos completos para 80 familias.</p>
+                        <div class="project-meta">
+                            <span class="project-date">Agosto 2023</span>
+                            <span class="project-category">Construcción</span>
+                        </div>
                     </div>
                 </div>
-                <div class="project-card fade-in">
-                    <div class="project-image">🏭</div>
+                
+                <div class="project-card fade-in" data-category="ingenieria">
+                    <div class="project-image">
+                        🏭
+                        <div class="project-overlay">Ver Detalles</div>
+                    </div>
                     <div class="project-info">
-                        <h4>Proyecto 04</h4>
-                        <p>Nave industrial para almacenamiento y producción con especificaciones técnicas especializadas para la industria local.</p>
+                        <h4>Nave Industrial Textil</h4>
+                        <p>Diseño y construcción de nave industrial para producción textil con especificaciones técnicas especializadas y sistemas de ventilación.</p>
+                        <div class="project-meta">
+                            <span class="project-date">Junio 2023</span>
+                            <span class="project-category">Ingeniería</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -704,18 +1208,26 @@
                     <h3>Empresa Individual de Responsabilidad Limitada</h3>
                     <p>Desde diciembre de 2022, CHINCHINA INGENIERIA & CONSTRUCCION E.I.R.L. se ha consolidado como una empresa líder en el sector construcción en la región de Cusco, específicamente en Sicuani y Canchis.</p>
                     
-                    <p>Nos especializamos en brindar soluciones integrales en construcción, combinando experiencia técnica, calidad en materiales y un equipo profesional comprometido con la excelencia.</p>
+                    <p>Nos especializamos en brindar soluciones integrales en construcción, combinando experiencia técnica, calidad en materiales y un equipo profesional comprometido con la excelencia y la innovación.</p>
                     
                     <p>Nuestra ubicación estratégica en Pj. Qolqa Pampa nos permite atender eficientemente a toda la región, ofreciendo servicios personalizados y adaptados a las necesidades específicas de cada cliente.</p>
                     
                     <div class="about-stats">
                         <div class="stat-item">
-                            <div class="stat-number">2+</div>
+                            <span class="stat-number">3+</span>
                             <div>Años de Experiencia</div>
                         </div>
                         <div class="stat-item">
-                            <div class="stat-number">50+</div>
+                            <span class="stat-number">75+</span>
                             <div>Proyectos Completados</div>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">150+</span>
+                            <div>Clientes Satisfechos</div>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">100%</span>
+                            <div>Compromiso</div>
                         </div>
                     </div>
                 </div>
@@ -727,6 +1239,7 @@
     <section id="contacto" class="section contact">
         <div class="container">
             <h2 class="section-title fade-in">Contáctanos</h2>
+            <p class="section-subtitle fade-in">Estamos aquí para hacer realidad tu próximo proyecto</p>
             <div class="contact-content">
                 <div class="contact-info fade-in">
                     <h3>Información de Contacto</h3>
@@ -734,8 +1247,22 @@
                         <i>📍</i>
                         <div>
                             <strong>Dirección:</strong><br>
-                            Pj. Qolqa Pampa Nro. S/n Asc. Luz de Copacabana<br>
-                            Sicuani, Canchis - Cusco, Perú
+                            <span id="contactAddress">Pj. Qolqa Pampa Nro. S/n Asc. Luz de Copacabana<br>
+                            Sicuani, Canchis - Cusco, Perú</span>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i>📱</i>
+                        <div>
+                            <strong>Teléfono:</strong><br>
+                            <span id="contactPhone">+51 XXX XXX XXX</span>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i>📧</i>
+                        <div>
+                            <strong>Email:</strong><br>
+                            <span id="contactEmail">info@chinchinaingenieria.com</span>
                         </div>
                     </div>
                     <div class="contact-item">
@@ -759,10 +1286,16 @@
                             Activo y Habido
                         </div>
                     </div>
+                    
+                    <div class="social-links">
+                        <a href="#" class="social-link">📘</a>
+                        <a href="#" class="social-link">📷</a>
+                        <a href="#" class="social-link">💬</a>
+                    </div>
                 </div>
                 
                 <form class="contact-form fade-in">
-                    <h3 style="margin-bottom: 1.5rem; color: #2980b9;">Solicitar Información</h3>
+                    <h3 style="margin-bottom: 1.5rem; color: #2980b9; text-align: center;">Solicitar Información</h3>
                     <div class="form-group">
                         <label for="nombre">Nombre Completo</label>
                         <input type="text" id="nombre" name="nombre" required>
@@ -777,7 +1310,7 @@
                     </div>
                     <div class="form-group">
                         <label for="servicio">Servicio de Interés</label>
-                        <select id="servicio" name="servicio" style="width: 100%; padding: 12px; border: 2px solid #bdc3c7; border-radius: 10px; font-size: 1rem;">
+                        <select id="servicio" name="servicio">
                             <option value="">Seleccionar servicio...</option>
                             <option value="construccion">Construcción de Edificios</option>
                             <option value="arquitectura">Arquitectura e Ingeniería</option>
@@ -800,34 +1333,367 @@
             <div class="footer-content">
                 <div class="footer-section">
                     <h4>Chinchina Ingeniería & Construcción E.I.R.L.</h4>
-                    <p>Tu socio confiable en construcción, arquitectura e ingeniería en la región de Cusco.</p>
+                    <p>Tu socio confiable en construcción, arquitectura e ingeniería en la región de Cusco. Comprometidos con la excelencia y la innovación en cada proyecto.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">📘</a>
+                        <a href="#" class="social-link">📷</a>
+                        <a href="#" class="social-link">💼</a>
+                        <a href="#" class="social-link">💬</a>
+                    </div>
                 </div>
                 <div class="footer-section">
-                    <h4>Servicios</h4>
-                    <p>• Construcción de Edificios<br>
-                    • Arquitectura e Ingeniería<br>
-                    • Venta de Ferretería</p>
+                    <h4>Nuestros Servicios</h4>
+                    <ul>
+                        <li>Construcción de Edificios Completos</li>
+                        <li>Diseño Arquitectónico</li>
+                        <li>Ingeniería Estructural</li>
+                        <li>Venta de Materiales de Construcción</li>
+                        <li>Consultoría en Proyectos</li>
+                        <li>Supervisión de Obras</li>
+                    </ul>
                 </div>
                 <div class="footer-section">
-                    <h4>Ubicación</h4>
-                    <p>Sicuani, Canchis<br>
-                    Cusco, Perú<br>
-                    RUC: 20610362312</p>
+                    <h4>Información Legal</h4>
+                    <ul>
+                        <li>RUC: 20610362312</li>
+                        <li>CIIU: 45207</li>
+                        <li>Estado: Activo y Habido</li>
+                        <li>Sicuani, Canchis - Cusco</li>
+                        <li>Empresa Individual de Responsabilidad Limitada</li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Horarios de Atención</h4>
+                    <ul>
+                        <li>Lunes a Viernes: 8:00 AM - 6:00 PM</li>
+                        <li>Sábados: 8:00 AM - 1:00 PM</li>
+                        <li>Domingos: Cerrado</li>
+                        <li>Atención de emergencias 24/7</li>
+                    </ul>
                 </div>
             </div>
-            <hr style="border: none; height: 1px; background: #f1c40f; margin: 2rem 0;">
-            <p>&copy; 2025 Chinchina Ingeniería & Construcción E.I.R.L. Todos los derechos reservados.</p>
+            <hr style="border: none; height: 1px; background: linear-gradient(45deg, #27ae60, #f1c40f); margin: 2rem 0;">
+            <p style="text-align: center; color: #bbb;">&copy; 2025 Chinchina Ingeniería & Construcción E.I.R.L. Todos los derechos reservados. | Desarrollado con tecnología moderna para brindar la mejor experiencia.</p>
         </div>
     </footer>
 
     <script>
-        // Mobile menu toggle
+        // Variables globales para almacenar datos
+        let companyData = {
+            name: 'Chinchina Ingeniería & Construcción',
+            description: 'Especialistas en construcción de edificios completos, arquitectura e ingeniería. Tu proyecto, nuestra experiencia.',
+            logo: null,
+            projects: [],
+            contact: {
+                phone: '+51 XXX XXX XXX',
+                email: 'info@chinchinaingenieria.com',
+                address: 'Pj. Qolqa Pampa Nro. S/n Asc. Luz de Copacabana, Sicuani, Canchis - Cusco, Perú'
+            },
+            colors: {
+                primary: '#27ae60',
+                secondary: '#2980b9',
+                accent: '#f1c40f'
+            }
+        };
+
+        // Funciones del panel de administración
+        function toggleAdmin() {
+            const panel = document.getElementById('adminPanel');
+            panel.classList.toggle('open');
+        }
+
+        function uploadLogo(input) {
+            const file = input.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const logoData = e.target.result;
+                    companyData.logo = logoData;
+                    
+                    // Mostrar preview
+                    const preview = document.getElementById('logoPreview');
+                    preview.src = logoData;
+                    preview.style.display = 'block';
+                    
+                    // Actualizar logo en el header
+                    const headerLogo = document.getElementById('headerLogo');
+                    headerLogo.src = logoData;
+                    headerLogo.style.display = 'block';
+                    
+                    // Guardar en localStorage
+                    localStorage.setItem('companyData', JSON.stringify(companyData));
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function updateCompanyInfo() {
+            const name = document.getElementById('companyName').value;
+            const description = document.getElementById('companyDescription').value;
+            
+            if (name) {
+                companyData.name = name;
+                document.getElementById('headerCompanyName').textContent = name;
+                document.getElementById('heroTitle').textContent = name.toUpperCase();
+            }
+            
+            if (description) {
+                companyData.description = description;
+                document.getElementById('heroDescription').textContent = description;
+            }
+            
+            localStorage.setItem('companyData', JSON.stringify(companyData));
+            alert('Información actualizada correctamente');
+        }
+
+        function uploadProjectImages(input) {
+            const files = input.files;
+            if (files.length > 0) {
+                Array.from(files).forEach((file, index) => {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        // Las imágenes se procesarán cuando se agregue el proyecto
+                        console.log('Imagen cargada:', file.name);
+                    };
+                    reader.readAsDataURL(file);
+                });
+            }
+        }
+
+        function addProject() {
+            const title = document.getElementById('projectTitle').value;
+            const description = document.getElementById('projectDescription').value;
+            const category = document.getElementById('projectCategory').value;
+            const imageFiles = document.getElementById('projectUpload').files;
+            
+            if (!title || !description || imageFiles.length === 0) {
+                alert('Por favor completa todos los campos y selecciona al menos una imagen');
+                return;
+            }
+            
+            Array.from(imageFiles).forEach((file, index) => {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const project = {
+                        id: Date.now() + index,
+                        title: imageFiles.length > 1 ? `${title} - Imagen ${index + 1}` : title,
+                        description: description,
+                        category: category,
+                        image: e.target.result,
+                        date: new Date().toLocaleDateString('es-ES', { month: 'long', year: 'numeric' })
+                    };
+                    
+                    companyData.projects.push(project);
+                    renderProject(project);
+                    localStorage.setItem('companyData', JSON.stringify(companyData));
+                };
+                reader.readAsDataURL(file);
+            });
+            
+            // Limpiar formulario
+            document.getElementById('projectTitle').value = '';
+            document.getElementById('projectDescription').value = '';
+            document.getElementById('projectUpload').value = '';
+            
+            alert('Proyecto(s) agregado(s) correctamente');
+        }
+
+        function renderProject(project) {
+            const projectsGrid = document.getElementById('projectsGrid');
+            const projectCard = document.createElement('div');
+            projectCard.className = 'project-card fade-in';
+            projectCard.setAttribute('data-category', project.category);
+            
+            projectCard.innerHTML = `
+                <div class="project-image">
+                    <img src="${project.image}" alt="${project.title}">
+                    <div class="project-overlay">Ver Detalles</div>
+                </div>
+                <div class="project-info">
+                    <h4>${project.title}</h4>
+                    <p>${project.description}</p>
+                    <div class="project-meta">
+                        <span class="project-date">${project.date}</span>
+                        <span class="project-category">${project.category}</span>
+                    </div>
+                </div>
+            `;
+            
+            projectsGrid.appendChild(projectCard);
+        }
+
+        function clearGallery() {
+            if (confirm('¿Estás seguro de que quieres eliminar todos los proyectos personalizados?')) {
+                companyData.projects = [];
+                localStorage.setItem('companyData', JSON.stringify(companyData));
+                location.reload(); // Recargar para mostrar proyectos por defecto
+            }
+        }
+
+        function updateContactInfo() {
+            const phone = document.getElementById('contactPhone').value;
+            const email = document.getElementById('contactEmail').value;
+            const address = document.getElementById('contactAddress').value;
+            
+            if (phone) {
+                companyData.contact.phone = phone;
+                document.getElementById('contactPhone').textContent = phone;
+            }
+            
+            if (email) {
+                companyData.contact.email = email;
+                document.getElementById('contactEmail').textContent = email;
+            }
+            
+            if (address) {
+                companyData.contact.address = address;
+                document.getElementById('contactAddress').innerHTML = address;
+            }
+            
+            localStorage.setItem('companyData', JSON.stringify(companyData));
+            alert('Información de contacto actualizada');
+        }
+
+        function updateColors() {
+            const primary = document.getElementById('primaryColor').value;
+            const secondary = document.getElementById('secondaryColor').value;
+            const accent = document.getElementById('accentColor').value;
+            
+            companyData.colors = { primary, secondary, accent };
+            
+            // Aplicar colores dinámicamente
+            const root = document.documentElement;
+            root.style.setProperty('--primary-color', primary);
+            root.style.setProperty('--secondary-color', secondary);
+            root.style.setProperty('--accent-color', accent);
+            
+            localStorage.setItem('companyData', JSON.stringify(companyData));
+            alert('Colores actualizados');
+        }
+
+        function exportData() {
+            const dataStr = JSON.stringify(companyData, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'chinchina-data.json';
+            link.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function importData(input) {
+            const file = input.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    try {
+                        const importedData = JSON.parse(e.target.result);
+                        companyData = {...companyData, ...importedData};
+                        localStorage.setItem('companyData', JSON.stringify(companyData));
+                        alert('Datos importados correctamente. La página se recargará.');
+                        location.reload();
+                    } catch (error) {
+                        alert('Error al importar datos. Verifica que el archivo sea válido.');
+                    }
+                };
+                reader.readAsText(file);
+            }
+        }
+
+        // Cargar datos guardados al iniciar
+        function loadSavedData() {
+            const savedData = localStorage.getItem('companyData');
+            if (savedData) {
+                const data = JSON.parse(savedData);
+                companyData = {...companyData, ...data};
+                
+                // Aplicar datos guardados
+                if (data.logo) {
+                    const headerLogo = document.getElementById('headerLogo');
+                    const preview = document.getElementById('logoPreview');
+                    headerLogo.src = data.logo;
+                    headerLogo.style.display = 'block';
+                    preview.src = data.logo;
+                    preview.style.display = 'block';
+                }
+                
+                if (data.name) {
+                    document.getElementById('headerCompanyName').textContent = data.name;
+                    document.getElementById('heroTitle').textContent = data.name.toUpperCase();
+                    document.getElementById('companyName').value = data.name;
+                }
+                
+                if (data.description) {
+                    document.getElementById('heroDescription').textContent = data.description;
+                    document.getElementById('companyDescription').value = data.description;
+                }
+                
+                // Cargar proyectos personalizados
+                if (data.projects && data.projects.length > 0) {
+                    data.projects.forEach(project => renderProject(project));
+                }
+                
+                // Aplicar información de contacto
+                if (data.contact) {
+                    if (data.contact.email) {
+                        document.getElementById('contactEmail').textContent = data.contact.email;
+                        document.querySelector('#contactEmail.admin-input').value = data.contact.email;
+                    }
+                    if (data.contact.address) {
+                        document.getElementById('contactAddress').innerHTML = data.contact.address;
+                        document.querySelector('#contactAddress.admin-input').value = data.contact.address;
+                    }
+                }
+                
+                // Aplicar colores personalizados
+                if (data.colors) {
+                    document.getElementById('primaryColor').value = data.colors.primary;
+                    document.getElementById('secondaryColor').value = data.colors.secondary;
+                    document.getElementById('accentColor').value = data.colors.accent;
+                    updateColors();
+                }
+            }
+        }
+
+        // Funciones del sitio web
         function toggleMenu() {
             const navLinks = document.querySelector('.nav-links');
             const hamburger = document.querySelector('.hamburger');
             
             navLinks.classList.toggle('active');
             hamburger.classList.toggle('active');
+        }
+
+        function filterProjects(category) {
+            const projects = document.querySelectorAll('.project-card');
+            const filters = document.querySelectorAll('.gallery-filter');
+            
+            // Actualizar botones activos
+            filters.forEach(filter => {
+                filter.classList.remove('active');
+                if (filter.textContent.toLowerCase().includes(category) || 
+                    (category === 'all' && filter.textContent === 'Todos')) {
+                    filter.classList.add('active');
+                }
+            });
+            
+            // Mostrar/ocultar proyectos
+            projects.forEach(project => {
+                if (category === 'all' || project.dataset.category === category) {
+                    project.style.display = 'block';
+                    setTimeout(() => {
+                        project.style.opacity = '1';
+                        project.style.transform = 'translateY(0)';
+                    }, 100);
+                } else {
+                    project.style.opacity = '0';
+                    project.style.transform = 'translateY(20px)';
+                    setTimeout(() => {
+                        project.style.display = 'none';
+                    }, 300);
+                }
+            });
         }
 
         // Smooth scrolling
@@ -843,6 +1709,7 @@
                     
                     // Close mobile menu if open
                     document.querySelector('.nav-links').classList.remove('active');
+                    document.querySelector('.hamburger').classList.remove('active');
                 }
             });
         });
@@ -853,4 +1720,276 @@
             rootMargin: '0px 0px -50px 0px'
         };
 
-        const observer = new IntersectionObserver((entries)
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Form submission
+        document.querySelector('.contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Simulate form submission
+            const submitBtn = this.querySelector('.submit-btn');
+            const originalText = submitBtn.textContent;
+            
+            submitBtn.innerHTML = '<div class="loading"></div> Enviando...';
+            submitBtn.disabled = true;
+            
+            // Recopilar datos del formulario
+            const formData = {
+                nombre: document.getElementById('nombre').value,
+                email: document.getElementById('email').value,
+                telefono: document.getElementById('telefono').value,
+                servicio: document.getElementById('servicio').value,
+                mensaje: document.getElementById('mensaje').value,
+                fecha: new Date().toLocaleDateString('es-ES')
+            };
+            
+            setTimeout(() => {
+                // Aquí podrías integrar con un servicio de email real
+                console.log('Datos del formulario:', formData);
+                
+                alert('¡Mensaje enviado exitosamente! Nos pondremos en contacto contigo pronto.');
+                this.reset();
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+                
+                // Opcional: guardar consulta en localStorage para seguimiento
+                const consultas = JSON.parse(localStorage.getItem('consultas') || '[]');
+                consultas.push(formData);
+                localStorage.setItem('consultas', JSON.stringify(consultas));
+            }, 2000);
+        });
+
+        // Parallax effect for hero
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            if (hero) {
+                hero.style.transform = `translateY(${scrolled * 0.3}px)`;
+            }
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'linear-gradient(135deg, rgba(39,174,96,0.95) 0%, rgba(41,128,185,0.95) 100%)';
+                header.style.backdropFilter = 'blur(20px)';
+            } else {
+                header.style.background = 'linear-gradient(135deg, #27ae60 0%, #2980b9 100%)';
+                header.style.backdropFilter = 'blur(10px)';
+            }
+        });
+
+        // Typing effect for hero title
+        function typeWriter(element, text, speed = 100) {
+            let i = 0;
+            element.innerHTML = '';
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+            type();
+        }
+
+        // Counter animation for stats
+        function animateCounter(element, target, duration = 2000) {
+            let start = 0;
+            const increment = target / (duration / 16);
+            
+            function updateCounter() {
+                start += increment;
+                if (start < target) {
+                    element.textContent = Math.floor(start) + '+';
+                    requestAnimationFrame(updateCounter);
+                } else {
+                    element.textContent = target + '+';
+                }
+            }
+            updateCounter();
+        }
+
+        // Initialize counters when visible
+        const statObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const number = entry.target;
+                    const target = parseInt(number.textContent);
+                    animateCounter(number, target);
+                    statObserver.unobserve(number);
+                }
+            });
+        });
+
+        document.querySelectorAll('.stat-number').forEach(stat => {
+            statObserver.observe(stat);
+        });
+
+        // Easter egg: Konami code for admin access
+        let konamiCode = [];
+        const konami = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
+        
+        document.addEventListener('keydown', function(e) {
+            konamiCode.push(e.keyCode);
+            if (konamiCode.length > konami.length) {
+                konamiCode.shift();
+            }
+            
+            if (konamiCode.toString() === konami.toString()) {
+                document.querySelector('.admin-toggle').style.background = 'linear-gradient(45deg, #f1c40f, #e74c3c)';
+                document.querySelector('.admin-toggle').innerHTML = '🚀';
+                setTimeout(() => {
+                    document.querySelector('.admin-toggle').style.background = 'linear-gradient(45deg, #27ae60, #2980b9)';
+                    document.querySelector('.admin-toggle').innerHTML = '⚙️';
+                }, 2000);
+            }
+        });
+
+        // Service worker para PWA (Progressive Web App)
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then((registration) => {
+                        console.log('SW registered: ', registration);
+                    })
+                    .catch((registrationError) => {
+                        console.log('SW registration failed: ', registrationError);
+                    });
+            });
+        }
+
+        // Función para generar reporte de rendimiento
+        function generatePerformanceReport() {
+            if (typeof PerformanceObserver !== 'undefined') {
+                const observer = new PerformanceObserver((list) => {
+                    const entries = list.getEntries();
+                    entries.forEach((entry) => {
+                        console.log(`${entry.name}: ${entry.duration}ms`);
+                    });
+                });
+                observer.observe({ entryTypes: ['measure', 'navigation'] });
+            }
+        }
+
+        // Detectar si es un dispositivo móvil
+        function isMobile() {
+            return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        }
+
+        // Optimizar imágenes para dispositivos móviles
+        function optimizeImages() {
+            if (isMobile()) {
+                const images = document.querySelectorAll('img');
+                images.forEach(img => {
+                    img.loading = 'lazy';
+                });
+            }
+        }
+
+        // Función para mostrar notificaciones personalizadas
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${type === 'success' ? '#27ae60' : '#e74c3c'};
+                color: white;
+                padding: 15px 25px;
+                border-radius: 10px;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+                z-index: 10001;
+                animation: slideIn 0.3s ease;
+            `;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+
+        // Agregar estilos de animación para notificaciones
+        const notificationStyles = document.createElement('style');
+        notificationStyles.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes slideOut {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(notificationStyles);
+
+        // Inicialización cuando el DOM esté listo
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSavedData();
+            optimizeImages();
+            generatePerformanceReport();
+            
+            // Mostrar notificación de bienvenida
+            setTimeout(() => {
+                showNotification('¡Bienvenido a Chinchina Ingeniería & Construcción!');
+            }, 1000);
+            
+            // Detectar si es la primera visita
+            if (!localStorage.getItem('visited')) {
+                localStorage.setItem('visited', 'true');
+                setTimeout(() => {
+                    showNotification('💡 Usa el botón ⚙️ para personalizar el sitio web', 'info');
+                }, 3000);
+            }
+        });
+
+        // Función de búsqueda rápida (bonus)
+        function quickSearch(query) {
+            const sections = document.querySelectorAll('section');
+            let results = [];
+            
+            sections.forEach(section => {
+                const text = section.textContent.toLowerCase();
+                if (text.includes(query.toLowerCase())) {
+                    results.push({
+                        section: section.id,
+                        title: section.querySelector('h2')?.textContent || 'Sección',
+                        snippet: text.substring(text.indexOf(query.toLowerCase()) - 50, text.indexOf(query.toLowerCase()) + 100)
+                    });
+                }
+            });
+            
+            return results;
+        }
+
+        // Agregar atajo de teclado para abrir admin (Ctrl + Alt + A)
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.altKey && e.key === 'a') {
+                e.preventDefault();
+                toggleAdmin();
+            }
+        });
+
+        console.log('🚀 Sitio web de Chinchina Ingeniería & Construcción cargado exitosamente!');
+        console.log('💡 Usa Ctrl + Alt + A para abrir el panel de administración rápidamente');
+        console.log('🎨 Personaliza colores, agrega tu logo y sube fotos de tus proyectos');
+    </script>
+</body>
+</html>
