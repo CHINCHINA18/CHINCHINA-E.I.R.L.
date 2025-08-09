@@ -1,684 +1,148 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chinchina Ingeniería & Construcción E.I.R.L.</title>
-    <link rel="icon" href="images/logo.png" type="image/png">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Arial', sans-serif;
-            line-height: 1.6;
-            color: #333;
-        }
-
-        /* Header */
-        header {
-            background: linear-gradient(135deg, #1e4a72 0%, #2d5f3f 100%);
-            color: white;
-            padding: 1rem 0;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-        }
-
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .logo-img {
-            width: 55px;
-            height: 55px;
-            filter: drop-shadow(0 2px 8px rgba(0,0,0,0.2));
-            border-radius: 8px;
-        }
-
-        .logo-text {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: white;
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
-
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            transition: color 0.3s;
-            font-weight: 500;
-        }
-
-        .nav-links a:hover {
-            color: #4CAF50;
-        }
-
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(135deg, rgba(30, 74, 114, 0.85), rgba(45, 95, 63, 0.75)), 
-                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 900"><defs><linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:%231e4a72;stop-opacity:1" /><stop offset="50%" style="stop-color:%232d5f3f;stop-opacity:0.8" /><stop offset="100%" style="stop-color:%234CAF50;stop-opacity:0.6" /></linearGradient><pattern id="construction" patternUnits="userSpaceOnUse" width="80" height="80"><rect width="80" height="80" fill="url(%23bgGrad)"/><path d="M0 40 L40 0 L80 40 L40 80 Z" fill="none" stroke="%23ffffff" stroke-width="1" opacity="0.1"/><circle cx="20" cy="20" r="3" fill="%23ffffff" opacity="0.15"/><circle cx="60" cy="60" r="3" fill="%23ffffff" opacity="0.15"/></pattern></defs><rect width="1400" height="900" fill="url(%23construction)"/><g opacity="0.3"><polygon points="0,200 300,100 600,250 900,150 1200,300 1400,200 1400,0 0,0" fill="%234CAF50"/><polygon points="0,500 200,400 500,550 800,450 1100,600 1400,500 1400,300 0,300" fill="%232d5f3f"/></g><g opacity="0.2"><rect x="100" y="100" width="150" height="200" fill="%23ffffff" rx="5"/><rect x="300" y="150" width="120" height="180" fill="%23ffffff" rx="5"/><rect x="500" y="80" width="140" height="220" fill="%23ffffff" rx="5"/><rect x="700" y="120" width="160" height="190" fill="%23ffffff" rx="5"/><rect x="900" y="90" width="130" height="210" fill="%23ffffff" rx="5"/><rect x="1100" y="140" width="145" height="185" fill="%23ffffff" rx="5"/></g><g opacity="0.15"><circle cx="200" cy="400" r="50" fill="%234CAF50"/><circle cx="500" cy="500" r="40" fill="%232d5f3f"/><circle cx="800" cy="450" r="35" fill="%234CAF50"/><circle cx="1100" cy="480" r="45" fill="%232d5f3f"/></g><g opacity="0.1" stroke="%23ffffff" stroke-width="2" fill="none"><path d="M50,600 Q200,550 350,600 T650,600"/><path d="M750,650 Q900,600 1050,650 T1350,650"/><line x1="0" y1="700" x2="1400" y2="720"/><line x1="0" y1="750" x2="1400" y2="770"/></g></svg>');
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: white;
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle at 30% 70%, 
-                rgba(76, 175, 80, 0.15) 0%, 
-                transparent 50%),
-                radial-gradient(circle at 70% 20%, 
-                rgba(30, 74, 114, 0.15) 0%, 
-                transparent 50%),
-                linear-gradient(45deg, 
-                rgba(45, 95, 63, 0.05) 0%, 
-                rgba(76, 175, 80, 0.1) 50%,
-                rgba(30, 74, 114, 0.05) 100%);
-            animation: backgroundFloat 12s ease-in-out infinite;
-        }
-
-        .hero::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="%23ffffff" opacity="0.1"><animate attributeName="opacity" values="0.1;0.3;0.1" dur="3s" repeatCount="indefinite"/></circle><circle cx="80" cy="30" r="1.5" fill="%23ffffff" opacity="0.15"><animate attributeName="opacity" values="0.15;0.4;0.15" dur="4s" repeatCount="indefinite"/></circle><circle cx="40" cy="70" r="1" fill="%234CAF50" opacity="0.2"><animate attributeName="opacity" values="0.2;0.5;0.2" dur="5s" repeatCount="indefinite"/></circle><circle cx="70" cy="80" r="2.5" fill="%234CAF50" opacity="0.1"><animate attributeName="opacity" values="0.1;0.4;0.1" dur="6s" repeatCount="indefinite"/></circle></svg>');
-            animation: floatingElements 20s linear infinite;
-            z-index: 1;
-        }
-
-        .hero-content {
-            max-width: 800px;
-            padding: 2rem;
-            position: relative;
-            z-index: 10;
-            background: rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(5px);
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            animation: fadeInUp 1s ease-out;
-        }
-
-        .hero p {
-            font-size: 1.3rem;
-            margin-bottom: 2rem;
-            animation: fadeInUp 1s ease-out 0.3s both;
-        }
-
-        .cta-button {
-            display: inline-block;
-            background: linear-gradient(135deg, #4CAF50, #2d5f3f);
-            color: white;
-            padding: 1rem 2rem;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: bold;
-            font-size: 1.1rem;
-            transition: all 0.3s;
-            animation: fadeInUp 1s ease-out 0.6s both;
-            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
-        }
-
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(76, 175, 80, 0.4);
-            background: linear-gradient(135deg, #66BB6A, #4CAF50);
-        }
-
-        /* Gallery Section */
-        .gallery {
-            padding: 5rem 2rem;
-            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
-        }
-
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-            max-width: 1200px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .project-card {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            transition: all 0.3s;
-            position: relative;
-        }
-
-        .project-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-        }
-
-        .project-image {
-            height: 250px;
-            background-size: cover;
-            background-position: center;
-            position: relative;
-        }
-
-        .project-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(45deg, rgba(30, 74, 114, 0.8), rgba(45, 95, 63, 0.7));
-            opacity: 0;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .project-card:hover .project-overlay {
-            opacity: 1;
-        }
-
-        .project-icon {
-            font-size: 3rem;
-            color: white;
-        }
-
-        .project-info {
-            padding: 1.5rem;
-        }
-
-        .project-info h3 {
-            color: #1e4a72;
-            margin-bottom: 0.5rem;
-            font-size: 1.3rem;
-        }
-
-        .project-category {
-            color: #4CAF50;
-            font-weight: bold;
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-        }
-
-        /* Real image backgrounds */
-        .edificaciones-img {
-            background-image: url('images/proyecto1.jpeg');
-        }
-
-        .viales-img {
-            background-image: url('images/proyecto2.jpeg');
-        }
-
-        /* Services Section */
-        .services {
-            padding: 5rem 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><defs><radialGradient id="serviceGrad" cx="50%" cy="50%" r="50%"><stop offset="0%" style="stop-color:%234CAF50;stop-opacity:0.03"/><stop offset="100%" style="stop-color:%231e4a72;stop-opacity:0.01"/></radialGradient></defs><rect width="1200" height="800" fill="url(%23serviceGrad)"/><g opacity="0.05"><path d="M100,100 L200,50 L300,100 L250,200 L150,200 Z" fill="%234CAF50"/><path d="M500,150 L600,100 L700,150 L650,250 L550,250 Z" fill="%232d5f3f"/><path d="M900,80 L1000,30 L1100,80 L1050,180 L950,180 Z" fill="%234CAF50"/></g></svg>');
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            color: #1e4a72;
-        }
-
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .service-card {
-            background: white;
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            transition: all 0.3s;
-            text-align: center;
-            border: 2px solid transparent;
-        }
-
-        .service-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-            border-color: #4CAF50;
-        }
-
-        .service-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            color: #2d5f3f;
-        }
-
-        .service-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: #1e4a72;
-        }
-
-        /* About Section */
-        .about {
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%), 
-                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><defs><pattern id="buildingPattern" patternUnits="userSpaceOnUse" width="200" height="200"><rect width="200" height="200" fill="%23ffffff"/><rect x="20" y="40" width="60" height="120" fill="%23f8f9fa" stroke="%234CAF50" stroke-width="1" opacity="0.3"/><rect x="120" y="20" width="50" height="140" fill="%23f8f9fa" stroke="%231e4a72" stroke-width="1" opacity="0.3"/><circle cx="50" cy="180" r="8" fill="%234CAF50" opacity="0.2"/><circle cx="150" cy="180" r="6" fill="%232d5f3f" opacity="0.2"/></pattern></defs><rect width="1200" height="600" fill="url(%23buildingPattern)"/></svg>');
-            padding: 5rem 2rem;
-            background-attachment: fixed;
-        }
-
-        .about-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            align-items: center;
-        }
-
-        .company-info {
-            background: white;
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-
-        .info-item {
-            display: flex;
-            margin-bottom: 1rem;
-            align-items: center;
-        }
-
-        .info-label {
-            font-weight: bold;
-            color: #1e4a72;
-            min-width: 150px;
-        }
-
-        /* Contact Section */
-        .contact {
-            background: linear-gradient(135deg, #1e4a72 0%, #2d5f3f 100%);
-            color: white;
-            padding: 5rem 2rem;
-        }
-
-        .contact-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-        }
-
-        .contact-form {
-            background: rgba(255,255,255,0.1);
-            padding: 2rem;
-            border-radius: 15px;
-            backdrop-filter: blur(10px);
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: #4CAF50;
-            font-weight: bold;
-        }
-
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 0.8rem;
-            border: none;
-            border-radius: 8px;
-            background: rgba(255,255,255,0.9);
-            font-size: 1rem;
-        }
-
-        .form-group textarea {
-            height: 120px;
-            resize: vertical;
-        }
-
-        .submit-btn {
-            background: linear-gradient(135deg, #4CAF50, #2d5f3f);
-            color: white;
-            padding: 1rem 2rem;
-            border: none;
-            border-radius: 25px;
-            font-weight: bold;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: all 0.3s;
-            width: 100%;
-        }
-
-        .submit-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
-            background: linear-gradient(135deg, #66BB6A, #4CAF50);
-        }
-
-        .contact-info h3 {
-            color: #4CAF50;
-            margin-bottom: 1rem;
-        }
-
-        .contact-details {
-            background: rgba(255,255,255,0.1);
-            padding: 2rem;
-            border-radius: 15px;
-            backdrop-filter: blur(10px);
-        }
-
-        /* Footer */
-        footer {
-            background: #1a1a1a;
-            color: white;
-            text-align: center;
-            padding: 2rem;
-        }
-
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes backgroundFloat {
-            0%, 100% { 
-                transform: translate(0, 0) scale(1);
-            }
-            33% { 
-                transform: translate(30px, -30px) scale(1.1);
-            }
-            66% { 
-                transform: translate(-20px, 20px) scale(0.95);
-            }
-        }
-
-        @keyframes floatingElements {
-            0% { 
-                transform: translateX(-100%) rotate(0deg);
-            }
-            100% { 
-                transform: translateX(100%) rotate(360deg);
-            }
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero p {
-                font-size: 1.1rem;
-            }
-
-            .about-content,
-            .contact-content {
-                grid-template-columns: 1fr;
-            }
-
-            .services-grid,
-            .gallery-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .logo-text {
-                font-size: 1.4rem;
-            }
-
-            .logo-img {
-                width: 45px;
-                height: 45px;
-            }
-        }
-
-        /* Menu móvil */
-        .mobile-menu {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-        }
-
-        .mobile-menu span {
-            width: 25px;
-            height: 3px;
-            background: white;
-            margin: 3px 0;
-            transition: 0.3s;
-        }
-
-        @media (max-width: 768px) {
-            .mobile-menu {
-                display: flex;
-            }
-        }
-
-        /* Image fallback styles */
-        .image-fallback {
-            background: linear-gradient(135deg, #1e4a72, #4CAF50);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.2rem;
-            text-align: center;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CHINCHINA INGENIERÍA & CONSTRUCCIÓN</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+    }
+    header {
+      background-color: #003366;
+      color: white;
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    header img {
+      height: 60px;
+    }
+    nav a {
+      color: white;
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .hero {
+      background: linear-gradient(to right, #0077b6, #00b4d8);
+      color: white;
+      padding: 60px 20px;
+      text-align: center;
+    }
+    .hero h1 {
+      font-size: 2.5em;
+      margin-bottom: 10px;
+    }
+    .hero p {
+      font-size: 1.2em;
+    }
+    .section {
+      padding: 40px 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
+    .section h2 {
+      color: #003366;
+      margin-bottom: 20px;
+    }
+    .services {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .service {
+      flex: 1;
+      min-width: 250px;
+      background-color: white;
+      padding: 20px;
+      border-left: 6px solid #00b4d8;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    .gallery img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .contact {
+      background-color: #e0f7fa;
+      padding: 30px;
+      border-radius: 8px;
+    }
+    footer {
+      background-color: #003366;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      margin-top: 40px;
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <nav>
-            <div class="logo">
-                <img src="images/logo.png" alt="Chinchina Logo" class="logo-img" 
-                     onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                <svg class="logo-img" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" style="display:none;">
-                    <defs>
-                        <filter id="logoShadow">
-                            <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#000" flood-opacity="0.2"/>
-                        </filter>
-                    </defs>
-                    <g transform="translate(100,100)" filter="url(#logoShadow)">
-                        <path d="M-50,-50 L50,-50 L30,-30 L-30,-30 L-30,30 L-50,50 L-50,-50 Z" 
-                              fill="#1e4a72" stroke="#1e4a72" stroke-width="1"/>
-                        <path d="M-30,-30 L30,-30 L30,10 L10,10 L10,30 L-30,30 L-30,-30 Z" 
-                              fill="#FFB000" stroke="#FFB000" stroke-width="1"/>
-                        <path d="M10,10 L50,10 L50,50 L-30,50 L-30,30 L10,30 L10,10 Z" 
-                              fill="#2d5f3f" stroke="#2d5f3f" stroke-width="1"/>
-                        <path d="M30,30 L50,30 L50,50 L30,50 L30,30 Z" 
-                              fill="#1e4a72" stroke="#1e4a72" stroke-width="1"/>
-                    </g>
-                </svg>
-                <div class="logo-text">CHINCHINA</div>
-            </div>
-            <ul class="nav-links">
-                <li><a href="#inicio">Inicio</a></li>
-                <li><a href="#proyectos">Proyectos</a></li>
-                <li><a href="#servicios">Servicios</a></li>
-                <li><a href="#nosotros">Nosotros</a></li>
-                <li><a href="#contacto">Contacto</a></li>
-            </ul>
-            <div class="mobile-menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </nav>
-    </header>
 
-    <main>
-        <section id="inicio" class="hero">
-            <div class="hero-content">
-                <h1>Chinchina Ingeniería & Construcción</h1>
-                <p>Especialistas en construcción de edificios, arquitectura, ingeniería y ferretería en Cusco, Perú</p>
-                <a href="#contacto" class="cta-button">Solicitar Cotización</a>
-            </div>
-        </section>
+  <header>
+    <img src="images/logo.png" alt="Logo CHINCHINA" />
+    <nav>
+      <a href="#inicio">Inicio</a>
+      <a href="#servicios">Servicios</a>
+      <a href="#proyectos">Proyectos</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+  </header>
 
-        <section id="proyectos" class="gallery">
-            <h2 class="section-title">Nuestros Proyectos</h2>
-            <div class="gallery-grid">
-                <div class="project-card">
-                    <div class="project-image edificaciones-img">
-                        <div class="project-overlay">
-                            <div class="project-icon">🏢</div>
-                        </div>
-                    </div>
-                    <div class="project-info">
-                        <div class="project-category">EDIFICACIONES</div>
-                        <h3>Construcción de Edificios</h3>
-                        <p>Edificios residenciales, comerciales e industriales con arquitectura moderna y funcional. Utilizamos materiales de alta calidad y tecnología de construcción avanzada.</p>
-                    </div>
-                </div>
-                
-                <div class="project-card">
-                    <div class="project-image viales-img">
-                        <div class="project-overlay">
-                            <div class="project-icon">🛣️</div>
-                        </div>
-                    </div>
-                    <div class="project-info">
-                        <div class="project-category">OBRAS VIALES</div>
-                        <h3>Infraestructura Vial</h3>
-                        <p>Carreteras, puentes, distribuidores viales y sistemas de drenaje. Estructuras seguras, funcionales y con señalización completa para el tráfico vehicular.</p>
-                    </div>
-                </div>
-                
-                <div class="project-card">
-                    <div class="project-image image-fallback">
-                        <div class="project-overlay">
-                            <div class="project-icon">🌊</div>
-                        </div>
-                        <span>Obras Hidráulicas</span>
-                    </div>
-                    <div class="project-info">
-                        <div class="project-category">OBRAS HIDRÁULICAS</div>
-                        <h3>Sistemas Hidráulicos</h3>
-                        <p>Represas, canales, acueductos y sistemas de tratamiento de agua. Proyectos especializados en manejo y distribución de recursos hídricos.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+  <section class="hero" id="inicio">
+    <h1>CHINCHINA INGENIERÍA & CONSTRUCCIÓN</h1>
+    <p>Soluciones integrales en edificaciones, obras viales e hidráulicas</p>
+  </section>
 
-        <section id="servicios" class="services">
-            <h2 class="section-title">Nuestros Servicios</h2>
-            <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-icon">🏗️</div>
-                    <h3>Construcción de Edificios Completos</h3>
-                    <p>Desarrollo integral de proyectos constructivos, desde la planificación hasta la entrega final. Edificaciones residenciales, comerciales e industriales.</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">📐</div>
-                    <h3>Arquitectura e Ingeniería</h3>
-                    <p>Servicios profesionales de diseño arquitectónico, ingeniería estructural, supervisión de obras y consultoría técnica especializada.</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">🔧</div>
-                    <h3>Ferretería y Suministros</h3>
-                    <p>Venta de materiales de construcción, herramientas, equipos y suministros para la industria de la construcción.</p>
-                </div>
-            </div>
-        </section>
+  <section class="section" id="servicios">
+    <h2>Servicios</h2>
+    <div class="services">
+      <div class="service">
+        <h3>🏢 Edificaciones</h3>
+        <p>Diseño y ejecución de obras civiles, residenciales y comerciales.</p>
+      </div>
+      <div class="service">
+        <h3>🛣️ Obras Viales</h3>
+        <p>Construcción y mejoramiento de caminos, calles y accesos rurales.</p>
+      </div>
+      <div class="service">
+        <h3>💧 Obras Hidráulicas</h3>
+        <p>Canales, reservorios y soluciones para el manejo eficiente del agua.</p>
+      </div>
+    </div>
+  </section>
 
-        <section id="nosotros" class="about">
-            <div class="about-content">
-                <div>
-                    <h2 class="section-title">Sobre Nosotros</h2>
-                    <p>Chinchina Ingeniería & Construcción E.I.R.L. es una empresa establecida comprometida con la excelencia en el sector de la construcción e ingeniería en la región de Cusco.</p>
-                    <p>Nuestra experiencia y dedicación nos permiten ofrecer soluciones integrales para proyectos de cualquier magnitud, manteniendo los más altos estándares de calidad y seguridad.</p>
-                </div>
-                <div class="company-info">
-                    <h3 style="color: #1e4a72; margin-bottom: 1.5rem;">Información de la Empresa</h3>
-                    <div class="info-item">
-                        <span class="info-label">RUC:</span>
-                        <span>20610362312</span>
-                    </div>
-                    <div class="info-item">
-                        <span class="info-label">Razón Social:</span>
-                        <span>Chinchina Ingeniería & Construcción E.I.R.L.</span>
-                    </div>
-                    <div class="info-item">
-                        <span class="info-label">Tipo:</span>
-                        <span>Empresa Individual de Responsabilidad Limitada</span>
-                    </div>
-                    <div class="info-item">
-                        <span class="info-label">Estado:</span>
-                        <span style="color: green; font-weight: bold;">Activo</span>
-                    </div>
-                    <div class="info-item">
-                        <span class="info-label">Ubicación:</span>
-                        <span>Cusco, Perú</span>
-                    </div>
-                    <div class="info-item">
-                        <span class="info-label">Inicio:</span>
-                        <span>28 de Diciembre de 2022</span>
-                    </div>
-                </div>
-            </div>
-        </section>
+  <section class="section" id="proyectos">
+    <h2>Galería de Proyectos</h2>
+    <div class="gallery">
+      <img src="images/proyecto1.jpeg" alt="Edificación residencial" />
+      <img src="images/proyecto2.jpeg" alt="Mejoramiento vial" />
+      <img src="images/proyecto3.jpeg" alt="Canal de riego" />
+      <img src="images/proyecto4.jpeg" alt="Obra en zona andina" />
+    </div>
+  </section>
 
-        <section id="contacto" class="contact">
-            <div class="contact-content">
-                <div>
-                    <h2 class="section-title" style="
+  <section class="section contact" id="contacto">
+    <h2>Contacto</h2>
+    <p><strong>📍 Dirección:</strong> Jr. Ejemplo 123, Juliaca, Puno</p>
+    <p><strong>📞 Teléfono:</strong> +51 987 654 321</p>
+    <p><strong>✉️ Correo:</strong> contacto@chinchina.com</p>
+  </section>
+
+  <footer>
+    &copy; 2025 CHINCHINA INGENIERÍA & CONSTRUCCIÓN E.I.R.L. | Todos los derechos reservados
+  </footer>
+
+</body>
+</html>
