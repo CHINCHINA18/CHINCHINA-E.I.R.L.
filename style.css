@@ -1,0 +1,113 @@
+/* style.css */
+
+/* ... (Todo el CSS del archivo original va aquí) ... */
+
+/* Estilos Adicionales y Mejorados */
+
+/* Modal de Proyectos */
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 10001; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%;
+    overflow: auto; 
+    background-color: rgba(0,0,0,0.8);
+    backdrop-filter: blur(5px);
+    animation: fadeIn 0.3s ease;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 10% auto;
+    padding: 30px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 700px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    text-align: center;
+    position: relative;
+    animation: slideInFromTop 0.4s ease;
+}
+
+.modal-close {
+    color: #aaa;
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.modal-close:hover {
+    color: #e74c3c;
+}
+
+#modalImage {
+    width: 100%;
+    height: auto;
+    max-height: 400px;
+    object-fit: cover;
+    border-radius: 15px;
+    margin-bottom: 20px;
+}
+
+#modalTitle {
+    font-size: 2rem;
+    color: var(--secondary-color, #2980b9);
+    margin-bottom: 10px;
+}
+
+#modalDescription {
+    font-size: 1.1rem;
+    color: #555;
+    line-height: 1.7;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideInFromTop {
+    from { transform: translateY(-50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* Notificaciones */
+#notification-container {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    z-index: 10002;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.notification {
+    padding: 15px 25px;
+    color: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    animation: slideInNotification 0.5s, slideOutNotification 0.5s 3.5s;
+    opacity: 0;
+    animation-fill-mode: forwards;
+}
+.notification.success { background: linear-gradient(45deg, #27ae60, #2ecc71); }
+.notification.error { background: linear-gradient(45deg, #e74c3c, #c0392b); }
+.notification.info { background: linear-gradient(45deg, #3498db, #2980b9); }
+
+@keyframes slideInNotification {
+    from { transform: translateX(120%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+@keyframes slideOutNotification {
+    from { transform: translateX(0); opacity: 1; }
+    to { transform: translateX(120%); opacity: 0; }
+}
